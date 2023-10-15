@@ -157,6 +157,12 @@ class CalendarController < ApplicationController
     ret_var << '<td>' + (translate 'project') + '</td>'
     ret_var << '<td>' + issue.project.name + '</td>' rescue '<td></td>'
     ret_var << '</tr>'
+    # Add Ticket ID
+    ret_var << '<tr>'
+    ret_var << '<td>' + 'Subject' + '</td>'
+    ret_var << '<td>' + issue.subject.to_s + '</td>' rescue '<td></td>'
+    ret_var << '</tr>'
+    # ticket id END
     ret_var << '<tr>'
     ret_var << '<td>' + (translate 'status') + '</td>'
     ret_var << '<td>' + issue.status.name + '</td>' rescue '<td></td>'
