@@ -168,7 +168,7 @@ class CalendarController < ApplicationController
     # Add Priority
     ret_var << '<tr>'
     ret_var << '<td>' + 'Ticket #' + '</td>'
-    ret_var << '<td>' + issue.id + '</td>' rescue '<td></td>'
+    ret_var << '<td>' + issue.id.to_s + '</td>' rescue '<td></td>'
     ret_var << '</tr>'
 
     ret_var << '</tr>'
