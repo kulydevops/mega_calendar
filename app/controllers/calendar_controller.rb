@@ -147,6 +147,12 @@ class CalendarController < ApplicationController
     tbegin = ticket_time.time_begin.strftime(" %H:%M") rescue ''
     tend = ticket_time.time_end.strftime(" %H:%M") rescue ''
     ret_var = '<table>'
+    # Add Ticket ID
+    ret_var << '<tr>'
+    ret_var << '<td>' + 'Ticket #' + '</td>'
+    ret_var << '<td>' + issue.id.to_s + '</td>' rescue '<td></td>'
+    ret_var << '</tr>'
+    # ticket id END
     ret_var << '<tr>'
     ret_var << '<td>' + (translate 'project') + '</td>'
     ret_var << '<td>' + issue.project.name + '</td>' rescue '<td></td>'
@@ -165,12 +171,6 @@ class CalendarController < ApplicationController
         ret_var << '<td>' + issue.assigned_to.name + '</td>' rescue '<td></td>'
       end
     end
-    # Add Priority
-    ret_var << '<tr>'
-    ret_var << '<td>' + 'Ticket #' + '</td>'
-    ret_var << '<td>' + issue.id.to_s + '</td>' rescue '<td></td>'
-    ret_var << '</tr>'
-
     ret_var << '</tr>'
     ret_var << '<tr>'
     ret_var << '<td>' + (translate 'start') + '</td>'
