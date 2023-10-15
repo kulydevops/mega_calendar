@@ -176,20 +176,25 @@ class CalendarController < ApplicationController
     ret_var << '</tr>'
     # Add Priority
     ret_var << '<tr>'
-    ret_var << '<td>' + (translate 'priority') + '</td>'
+    ret_var << '<td>' + 'Priority' + '</td>'
     ret_var << '<td>' + issue.priority.name + '</td>' rescue '<td></td>'
     ret_var << '</tr>'
     # Add Issue Type (Tracker)
     ret_var << '<tr>'
-    ret_var << '<td>' + (translate 'tracker') + '</td>'
+    ret_var << '<td>' + 'Type' + '</td>'
     ret_var << '<td>' + issue.tracker.name + '</td>' rescue '<td></td>'
     ret_var << '</tr>'
     unless location.nil?
       ret_var << '<tr>'
-      ret_var << '<td>' + (translate 'location') + '</td>'
+      ret_var << '<td>' + 'Location' + '</td>'
       ret_var << '<td>' + location + '</td>' rescue '<td></td>'
       ret_var << '</tr>'
     end
+    ret_var << '<tr>'
+    ret_var << '<td>' + 'Location' + '</td>'
+    ret_var << '<td>' + 'Long Branch, NJ' + '</td>' rescue '<td></td>'
+    ret_var << '</tr>'
+
     ret_var << '</table>'
     return ret_var
   end
