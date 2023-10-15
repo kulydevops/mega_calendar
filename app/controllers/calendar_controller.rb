@@ -165,6 +165,12 @@ class CalendarController < ApplicationController
         ret_var << '<td>' + issue.assigned_to.name + '</td>' rescue '<td></td>'
       end
     end
+    # Add Priority
+    ret_var << '<tr>'
+    ret_var << '<td>' + 'Ticket #' + '</td>'
+    ret_var << '<td>' + issue.id + '</td>' rescue '<td></td>'
+    ret_var << '</tr>'
+
     ret_var << '</tr>'
     ret_var << '<tr>'
     ret_var << '<td>' + (translate 'start') + '</td>'
