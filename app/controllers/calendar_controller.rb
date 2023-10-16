@@ -205,10 +205,10 @@ class CalendarController < ApplicationController
     # customer location
     loca_city = issue.custom_field_values.detect { |cf| cf.custom_field.name == "Cust. Site City" }&.value
     loca_state = issue.custom_field_values.detect { |cf| cf.custom_field.name == "Cust. Site State" }&.value
-    unless iloca_city.nil?
+    unless loca_city.nil?
       ret_var << '<tr>'
       ret_var << '<td>' + 'Site Location' + '</td>'
-      ret_var << '<td>' + loca_city + ' ' + loca_state + ' ' + '</td>' rescue '<td></td>'
+      ret_var << '<td>' + loca_city + ', ' + loca_state + ' ' + '</td>' rescue '<td></td>'
       ret_var << '</tr>'
     end
     # status
