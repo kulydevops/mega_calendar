@@ -142,6 +142,16 @@ class CalendarController < ApplicationController
     ret_var << '</table>'
     return ret_var
   end
+
+Ticket number
+Project
+Type
+Subject
+Dates
+Location assumed to it
+Customer city and state
+Status 
+
   def form_issue(issue)
     ticket_time = TicketTime.where({:issue_id => issue.id}).first rescue nil
     tbegin = ticket_time.time_begin.strftime(" %H:%M") rescue ''
@@ -157,16 +167,27 @@ class CalendarController < ApplicationController
     ret_var << '<td>' + (translate 'project') + '</td>'
     ret_var << '<td>' + issue.project.name + '</td>' rescue '<td></td>'
     ret_var << '</tr>'
-    # Add Ticket ID
+    # Add Issue Type (Tracker)
+    ret_var << '<tr>'
+    ret_var << '<td>' + 'Type' + '</td>'
+    ret_var << '<td>' + issue.tracker.name + '</td>' rescue '<td></td>'
+    ret_var << '</tr>'
+    # Add Subject
     ret_var << '<tr>'
     ret_var << '<td>' + 'Subject' + '</td>'
     ret_var << '<td>' + issue.subject.to_s + '</td>' rescue '<td></td>'
     ret_var << '</tr>'
-    # ticket id END
+    # dates
     ret_var << '<tr>'
-    ret_var << '<td>' + (translate 'status') + '</td>'
-    ret_var << '<td>' + issue.status.name + '</td>' rescue '<td></td>'
+    ret_var << '<td>' + (translate 'start') + '</td>'
+    ret_var << '<td>' + issue.start_date.to_date.to_s + ' ' + tbegin + ' </td>' rescue '<td></td>'
     ret_var << '</tr>'
+    ret_var << '<tr>'
+    ret_var << '<td>' + (translate 'end') + '</td>'
+    ret_var << '<td>' + issue.due_date.to_date.to_s + ' ' + tend + ' </td>' rescue '<td></td>'
+    ret_var << '</tr>'
+    # dates end
+
     ret_var << '<tr>'
     unless issue.assigned_to.nil?
       if issue.assigned_to.type == 'Group'
@@ -178,35 +199,30 @@ class CalendarController < ApplicationController
       end
     end
     ret_var << '</tr>'
-    ret_var << '<tr>'
-    ret_var << '<td>' + (translate 'start') + '</td>'
-    ret_var << '<td>' + issue.start_date.to_date.to_s + ' ' + tbegin + ' </td>' rescue '<td></td>'
-    ret_var << '</tr>'
-    ret_var << '<tr>'
-    ret_var << '<td>' + (translate 'end') + '</td>'
-    ret_var << '<td>' + issue.due_date.to_date.to_s + ' ' + tend + ' </td>' rescue '<td></td>'
-    ret_var << '</tr>'
     # Add Priority
     ret_var << '<tr>'
     ret_var << '<td>' + 'Priority' + '</td>'
     ret_var << '<td>' + issue.priority.name + '</td>' rescue '<td></td>'
     ret_var << '</tr>'
-    # Add Issue Type (Tracker)
-    ret_var << '<tr>'
-    ret_var << '<td>' + 'Type' + '</td>'
-    ret_var << '<td>' + issue.tracker.name + '</td>' rescue '<td></td>'
-    ret_var << '</tr>'
-    unless location.nil?
+    # location asigned
+    unless issue[custom_field_values][90].nil?
       ret_var << '<tr>'
-      ret_var << '<td>' + 'Location' + '</td>'
-      ret_var << '<td>' + location + '</td>' rescue '<td></td>'
+      ret_var << '<td>' + 'Location Assigned' + '</td>'
+      ret_var << '<td>' + issue[custom_field_values][90].to_s + '</td>' rescue '<td></td>'
       ret_var << '</tr>'
     end
+    # customer location
+    unless issue[custom_field_values][33].nil?
+      ret_var << '<tr>'
+      ret_var << '<td>' + 'Site Location' + '</td>'
+      ret_var << '<td>' + issue[custom_field_values][33].to_s +' '+ issue[custom_field_values][29].to_s +' '+ '</td>' rescue '<td></td>'
+      ret_var << '</tr>'
+    end
+    # status
     ret_var << '<tr>'
-    ret_var << '<td>' + 'Location' + '</td>'
-    ret_var << '<td>' + 'Long Branch, NJ' + '</td>' rescue '<td></td>'
+    ret_var << '<td>' + (translate 'status') + '</td>'
+    ret_var << '<td>' + issue.status.name + '</td>' rescue '<td></td>'
     ret_var << '</tr>'
-
     ret_var << '</table>'
     return ret_var
   end
