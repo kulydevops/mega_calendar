@@ -195,17 +195,20 @@ class CalendarController < ApplicationController
     ret_var << '<td>' + issue.priority.name + '</td>' rescue '<td></td>'
     ret_var << '</tr>'
     # location asigned
-    unless issue.custom_field_values[90].nil?
+    loca_assigned = issue.custom_field_values.detect { |cf| cf.custom_field.name == "Location Assigned" }&.value
+    unless loca_assigned.nil?
       ret_var << '<tr>'
       ret_var << '<td>' + 'Location Assigned' + '</td>'
-      ret_var << '<td>' + issue.custom_field_values[90].to_s + '</td>' rescue '<td></td>'
+      ret_var << '<td>' + loca_assigned + '</td>' rescue '<td></td>'
       ret_var << '</tr>'
     end
     # customer location
-    unless issue.custom_field_values[33].nil?
+    loca_city = issue.custom_field_values.detect { |cf| cf.custom_field.name == "Cust. Site City" }&.value
+    loca_state = issue.custom_field_values.detect { |cf| cf.custom_field.name == "Cust. Site State" }&.value
+    unless iloca_city.nil?
       ret_var << '<tr>'
       ret_var << '<td>' + 'Site Location' + '</td>'
-      ret_var << '<td>' + issue.custom_field_values[33].to_s + ' ' + issue.custom_field_values[29].to_s + ' ' + '</td>' rescue '<td></td>'
+      ret_var << '<td>' + loca_city + ' ' + loca_state + ' ' + '</td>' rescue '<td></td>'
       ret_var << '</tr>'
     end
     # status
@@ -214,16 +217,6 @@ class CalendarController < ApplicationController
     ret_var << '<td>' + issue.status.name + '</td>' rescue '<td></td>'
     ret_var << '</tr>'
     ret_var << '</table>'
-    #random
-    ret_var << '<tr>'
-    ret_var << '<td>' + 'custom fields' + '</td>'
-    ret_var << '<td>' + issue.custom_field_values.to_json + '</td>' rescue '<td></td>'
-    ret_var << '</tr>'
-    #random
-    ret_var << '<tr>'
-    ret_var << '<td>' + 'custom fields2' + '</td>'
-    ret_var << '<td>' + issue.custom_fields.to_json + '</td>' rescue '<td></td>'
-    ret_var << '</tr>'
     ret_var << '</table>'
     return ret_var
   end
