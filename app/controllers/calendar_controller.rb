@@ -195,11 +195,16 @@ class CalendarController < ApplicationController
     ret_var << '<td>' + issue.priority.name + '</td>' rescue '<td></td>'
     ret_var << '</tr>'
     # location asigned
-    loca_assigned = issue.custom_field_values.detect { |cf| cf.custom_field.name == "Location Assigned" }&.value
-    unless loca_assigned.nil?
+    loca_assigned_cf = issue.custom_field_values.detect { |cf| cf.custom_field.name == "Location Assigned" }
+    if loca_assigned_cf&.value.is_a?(Array)
+      loca_assigned2 = loca_assigned_cf.value.join(", ")
+    else
+      loca_assigned2 = loca_assigned_cf&.value
+    end
+    unless loca_assigned2.nil?
       ret_var << '<tr>'
       ret_var << '<td>' + 'Location Assigned' + '</td>'
-      ret_var << '<td>' + loca_assigned + '</td>' rescue '<td></td>'
+      ret_var << '<td>' + loca_assigned2 + '</td>' rescue '<td></td>'
       ret_var << '</tr>'
     end
     # customer location
