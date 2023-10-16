@@ -184,7 +184,7 @@ class CalendarController < ApplicationController
         ret_var << '<td>' + (translate 'group') + '</td>'
         ret_var << '<td>' + issue.assigned_to.lastname + '</td>' rescue '<td></td>'
       else
-        ret_var << '<td>' + (translate 'user') + '</td>'
+        ret_var << '<td>' + 'Assignee' + '</td>'
         ret_var << '<td>' + issue.assigned_to.name + '</td>' rescue '<td></td>'
       end
     end
