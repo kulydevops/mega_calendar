@@ -142,16 +142,6 @@ class CalendarController < ApplicationController
     ret_var << '</table>'
     return ret_var
   end
-
-Ticket number
-Project
-Type
-Subject
-Dates
-Location assumed to it
-Customer city and state
-Status 
-
   def form_issue(issue)
     ticket_time = TicketTime.where({:issue_id => issue.id}).first rescue nil
     tbegin = ticket_time.time_begin.strftime(" %H:%M") rescue ''
@@ -205,17 +195,17 @@ Status
     ret_var << '<td>' + issue.priority.name + '</td>' rescue '<td></td>'
     ret_var << '</tr>'
     # location asigned
-    unless issue[custom_field_values][90].nil?
+    unless issue.custom_field_values[90].nil?
       ret_var << '<tr>'
       ret_var << '<td>' + 'Location Assigned' + '</td>'
-      ret_var << '<td>' + issue[custom_field_values][90].to_s + '</td>' rescue '<td></td>'
+      ret_var << '<td>' + issue.custom_field_values[90].to_s + '</td>' rescue '<td></td>'
       ret_var << '</tr>'
     end
     # customer location
-    unless issue[custom_field_values][33].nil?
+    unless issue.custom_field_values[33].nil?
       ret_var << '<tr>'
       ret_var << '<td>' + 'Site Location' + '</td>'
-      ret_var << '<td>' + issue[custom_field_values][33].to_s +' '+ issue[custom_field_values][29].to_s +' '+ '</td>' rescue '<td></td>'
+      ret_var << '<td>' + issue.custom_field_values[33].to_s + ' ' + issue.custom_field_values[29].to_s + ' ' + '</td>' rescue '<td></td>'
       ret_var << '</tr>'
     end
     # status
