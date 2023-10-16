@@ -213,16 +213,17 @@ class CalendarController < ApplicationController
     ret_var << '<td>' + (translate 'status') + '</td>'
     ret_var << '<td>' + issue.status.name + '</td>' rescue '<td></td>'
     ret_var << '</tr>'
+    ret_var << '</table>'
     #random
     ret_var << '<tr>'
-    ret_var << '<td>' + 'random sht' + '</td>'
-    ret_var << '<td>' + issue.custom_fields.to_s + '</td>' rescue '<td></td>'
+    ret_var << '<td>' + 'custom fields' + '</td>'
+    ret_var << '<td>' + issue.custom_field_values.to_json + '</td>' rescue '<td></td>'
     ret_var << '</tr>'
-      #random
-      ret_var << '<tr>'
-      ret_var << '<td>' + 'random sht2' + '</td>'
-      ret_var << '<td>' + issue.custom_fields.to_json + '</td>' rescue '<td></td>'
-      ret_var << '</tr>'
+    #random
+    ret_var << '<tr>'
+    ret_var << '<td>' + 'custom fields2' + '</td>'
+    ret_var << '<td>' + issue.custom_fields.to_json + '</td>' rescue '<td></td>'
+    ret_var << '</tr>'
     ret_var << '</table>'
     return ret_var
   end
